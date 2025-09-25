@@ -12,6 +12,7 @@ namespace Company.PL.Controllers
         {
             _logger = logger;
         }
+        
 
         public IActionResult Index()
         {
