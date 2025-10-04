@@ -25,9 +25,9 @@ namespace Company.BLL.Repositories
             
         }
 
-        public Department Get(int id)
+        public Department Get(int? id)
         {
-            return _context.Departments.Find();
+            return _context.Departments.Find(id);
 
         }
         public int add(Department department)
