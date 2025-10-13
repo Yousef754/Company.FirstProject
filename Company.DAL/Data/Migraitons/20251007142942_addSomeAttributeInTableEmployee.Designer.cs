@@ -4,16 +4,19 @@ using Company.DAL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Company.DAL.Data.Migrations
+namespace Company.DAL.Data.Migraitons
 {
     [DbContext(typeof(DbContextSql))]
-    partial class DbContextSqlModelSnapshot : ModelSnapshot
+    [Migration("20251007142942_addSomeAttributeInTableEmployee")]
+    partial class addSomeAttributeInTableEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,23 +1,23 @@
-﻿@model Department
+﻿@model CreateDepartmentDto
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Department</h1>
+<h1>Update Department</h1>
 <br />
 <br />
 
-<form asp-action="Edit">
+<form asp-action="Update">
     <div class="m-3">
-        <label asp-for="Code" class="col-form-label">Code</label>
-        <input asp-for="Code" class="form-control" />
-        <span asp-validation-for="Code" class="text-danger"></span>
+        <label asp-for="code" class="col-form-label">Code</label>
+        <input asp-for="code" class="form-control" />
+        <span asp-validation-for="code" class="text-danger"></span>
     </div>
 
     <div class="m-3">
-        <label asp-for="Name" class="col-form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="name" class="col-form-label"></label>
+        <input asp-for="name" class="form-control" />
+        <span asp-validation-for="name" class="text-danger"></span>
 
     </div>
 

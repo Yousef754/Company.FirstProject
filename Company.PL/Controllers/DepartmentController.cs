@@ -34,7 +34,7 @@ namespace Company.PL.Controllers
             if (ModelState.IsValid)
             {
                 var department = new Department() { Code = model.code, Name = model.name, CreateAt = model.CreateAt };
-                var count = _departmentRepository.add(department);
+                var count = _departmentRepository.Add(department);
                 if (count > 0)
                 {
                     return RedirectToAction(nameof(Index));
@@ -53,13 +53,22 @@ namespace Company.PL.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public IActionResult Update(int? id)
         {
-        //    if (id is null) return BadRequest("invalid id");
-        //    var department = _departmentRepository.Get(id.Value);
-        //    if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with {id} is not fount" });
+            if (id is null) return BadRequest("invalid id");
+            var department = _departmentRepository.Get(id.Value);
+            var dto = new CreateDepartmentDto()
+            {
+                name = department.Name,
+                code = department.Code,
+                CreateAt = department.CreateAt
+            };
 
-            return Details(id,"Edit");
+
+
+            if (department is null) return NotFound(new { StatusCode = 404, Message = $"Department with {id} is not fount" });
+
+            return View(dto);
         }
 
         //[HttpPost]
@@ -77,13 +86,14 @@ namespace Company.PL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int id, UpdateDepartmentDto model)
+        public IActionResult Update([FromRoute] int? id, CreateDepartmentDto model)
         {
             if (ModelState.IsValid)
             {
-                var department = new Department() { Code = model.code, Name = model.name, CreateAt = model.CreateAt };
+                var department = new Department() {Id=id.Value ,Code = model.code, Name = model.name, CreateAt = model.CreateAt };
 
-                var count = _departmentRepository.update(department);
+                var count = _departmentRepository.Update(department);
+                
                 if (count > 0) { return RedirectToAction(nameof(Index)); }
             }
 
@@ -105,7 +115,7 @@ namespace Company.PL.Controllers
         public IActionResult Delete([FromRoute] int? id,Department department)
         {
             if (ModelState.IsValid) {
-                var count = _departmentRepository.delete(department);
+                var count = _departmentRepository.Delete(department);
                 if (count > 0) {return RedirectToAction(nameof(Index));}
             }
 
