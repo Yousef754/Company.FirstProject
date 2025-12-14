@@ -4,6 +4,7 @@ using Company.DAL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company.DAL.Data.Migrations
 {
     [DbContext(typeof(DbContextSql))]
-    partial class DbContextSqlModelSnapshot : ModelSnapshot
+    [Migration("20251017145515_Add_ForeignKey_Department")]
+    partial class Add_ForeignKey_Department
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +76,6 @@ namespace Company.DAL.Data.Migrations
 
                     b.Property<DateTime>("HiringDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");

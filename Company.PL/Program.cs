@@ -1,6 +1,7 @@
 using Company.BLL.Interfaces;
 using Company.BLL.Repositories;
 using Company.DAL.Data.Context;
+using Company.PL.Mapping;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,19 @@ namespace Company.PL
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepsitory>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+
             builder.Services.AddDbContext<DbContextSql>(options => 
             { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
                 
                 ); 
             });
+
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddAutoMapper(m => m.AddProfile(new EmployeeProfile()));
+
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

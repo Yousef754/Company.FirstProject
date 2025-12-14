@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Company.DAL.Model;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Company.PL.Dto_Employee
@@ -30,10 +31,13 @@ namespace Company.PL.Dto_Employee
         [DisplayName("Date  date")]
 
         public DateTime CreateAt { get; set; }
+        [DisplayName("departments")]
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
 
+        public string? ImageName { get; set; }
 
-
-
+        public IFormFile? Image {  get; set; }
 
     }
 }

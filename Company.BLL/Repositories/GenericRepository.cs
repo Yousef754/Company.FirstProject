@@ -1,6 +1,8 @@
 ﻿using Company.BLL.Interfaces;
 using Company.DAL.Data.Context;
 using Company.DAL.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,33 +21,37 @@ namespace Company.BLL.Repositories
         
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return _context.Set<T>().ToList();
+            if(typeof(T)==typeof(Employee))
+            {
+                return (IEnumerable<T>) await _context.Employees.Include(E=>E.Department).ToListAsync();
+            }
+            
+            return await _context.Set<T>().ToListAsync();
         }
-        public T? Get(int id)
+        public async Task<T?> GetAsync(int id)
         {
-            return _context.Set<T>().Find(id);
+
+           if(typeof(T)== typeof(Employee))
+            {
+                return await _context.Employees.Include(E=>E.Department).FirstOrDefaultAsync(E=>E.Id==id) as T;
+            }
+            return  _context.Set<T>().Find(id);
         }
-        public int Add(T model)
+        public async Task AddAsync(T model)
         {
-           _context.Set<T>().Add(model);
-            return _context.SaveChanges();
+          await _context.Set<T>().AddAsync(model);
         }
-        public int Update(T model)
+        public void Update(T model)
         {
             _context.Set<T>().Update(model);
-            return _context.SaveChanges();
         }
-        public int Delete(T model)
+        public void Delete(T model)
         {
             _context.Set<T>().Remove(model);
-            return _context.SaveChanges();
         }
 
-        
-
-       
         
     }
 }

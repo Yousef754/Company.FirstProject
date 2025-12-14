@@ -1,4 +1,5 @@
 ﻿using Company.DAL.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
@@ -33,6 +34,7 @@ namespace Company.DAL.Data.Context
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<IdentityUser<int>> MyProperty {  get; set; }
 
     }
 }
