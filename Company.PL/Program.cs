@@ -1,6 +1,9 @@
 using Company.BLL.Interfaces;
 using Company.BLL.Repositories;
 using Company.DAL.Data.Context;
+using Company.DAL.Model;
+using Company.PL.Mapping;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +18,30 @@ namespace Company.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepsitory>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            
+            builder.Services.AddIdentity<AppUser,IdentityRole>()
+                              .AddEntityFrameworkStores<DbContextSql>()
+                              .AddDefaultTokenProviders();
+
             builder.Services.AddDbContext<DbContextSql>(options => 
             { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
                 
                 ); 
             });
+
+            //builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            builder.Services.AddAutoMapper(m => m.AddProfile(new EmployeeProfile()));
+
+            builder.Services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/Account/SignIn";
+            });
+
+            builder.Services.AddAuthorization();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,6 +57,7 @@ namespace Company.PL
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

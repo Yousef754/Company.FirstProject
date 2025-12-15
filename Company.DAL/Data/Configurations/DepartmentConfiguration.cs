@@ -14,7 +14,8 @@ namespace Company.DAL.Data.Configurations
         public void Configure(EntityTypeBuilder<Department> builder)
         {
             builder.HasKey(x => x.Id);
-            
+
+            builder.HasMany(D => D.Employees).WithOne(E => E.Department).HasForeignKey(D => D.DepartmentId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

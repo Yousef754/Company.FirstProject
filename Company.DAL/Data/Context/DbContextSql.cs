@@ -1,4 +1,6 @@
 ﻿using Company.DAL.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Company.DAL.Data.Context
 {
-    public class DbContextSql:DbContext
+    public class DbContextSql:IdentityDbContext<AppUser>
     {
 
 

@@ -9,44 +9,16 @@ using System.Threading.Tasks;
 
 namespace Company.BLL.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : GenericRepository<Department>,IDepartmentRepository
     {
-        private readonly DbContextSql _context;
 
-        public DepartmentRepository(DbContextSql dbContextSql)
+        public DepartmentRepository(DbContextSql context) :base(context) 
         {
-           _context = dbContextSql;
+
+
         }
 
-        public IEnumerable<Department> GetAll()
-        {
-          return  _context.Departments.ToList();
-
-            
-        }
-
-        public Department Get(int? id)
-        {
-            return _context.Departments.Find(id);
-
-        }
-        public int add(Department department)
-        {
-            _context.Departments.Add(department);
-            return _context.SaveChanges();
-        }
-        public int update(Department department)
-        {
-            _context.Departments.Update(department);
-            return _context.SaveChanges();
-        }
-
-        public int delete(Department department)
-        {
-            _context.Departments.Remove(department);
-            return _context.SaveChanges();
-        }
-
+        
         
     }
 }

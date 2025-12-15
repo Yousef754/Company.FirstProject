@@ -1,0 +1,33 @@
+﻿@model UserToReturnDto
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    var departments = new SelectList( ViewData["departments"] as IEnumerable<Department>,"Id","Name");
+}
+
+div class="m-3">
+<label asp-for="UserName" class="col-form-label">Name</label>
+<input asp-for="UserName" class="form-control" />
+<span asp-validation-for="FirstName" class="text-danger"></span>
+</div>
+
+
+
+<div class="m-3">
+    <label asp-for="LastName" class="col-form-label">Age</label>
+    <input asp-for="LastName" class="form-control" />
+    <span asp-validation-for="LastName" class="text-danger"></span>
+
+</div>
+
+
+
+<div class="m-3">
+    <label asp-for="Email" class="col-form-label">Email</label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+
+</div>
+
