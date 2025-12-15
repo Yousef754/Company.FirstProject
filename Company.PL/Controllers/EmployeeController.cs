@@ -129,7 +129,7 @@ namespace Company.PL.Controllers
 
                 
 
-                var departments = _unitOfWork.DepartmentRepository.GetAllAsync();
+                var departments =await _unitOfWork.DepartmentRepository.GetAllAsync();
                 ViewData["departments"] = departments;
 
 

@@ -1,9 +1,12 @@
 using System.Diagnostics;
 using Company.PL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.PL.Controllers
 {
+    [Authorize]
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -12,7 +15,7 @@ namespace Company.PL.Controllers
         {
             _logger = logger;
         }
-        
+
 
         public IActionResult Index()
         {
